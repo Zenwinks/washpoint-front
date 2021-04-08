@@ -1,30 +1,44 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div id="app">
+    <app-snackbar
+        :show="getSnackbar.text!==''"
+        :text="getSnackbar.text"
+        :type="getSnackbar.type"
+        @close="close()"
+    />
+    <router-view/>
   </div>
-  <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import AppSnackbar from "./components/units/AppSnackbar";
+import {mapActions, mapGetters} from "vuex";
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  name: "App",
+  components: {AppSnackbar},
+  computed: {
+    ...mapGetters(['getSnackbar'])
+  },
+  methods: {
+    ...mapActions(['setSnackBar']),
+    close() {
+      this.setSnackBar({'type': 'success', 'text': ''})
     }
   }
+}
+</script>
+
+<style lang="scss">
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.navbar-brand {
+  margin-left: 10px;
 }
 </style>

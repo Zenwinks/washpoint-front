@@ -1,6 +1,12 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import {gsap} from 'gsap'
+import {CSSPlugin} from 'gsap/CSSPlugin'
 
-createApp(App).use(store).use(router).mount('#app')
+gsap.registerPlugin(CSSPlugin)
+
+createApp(App)
+  .use(store).use(router)
+  .mount('#app')
